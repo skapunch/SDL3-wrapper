@@ -1,3 +1,5 @@
 bin
 obj
+.txt
+PointerFunctionDataIntents.json
 *.DotSettings.user
