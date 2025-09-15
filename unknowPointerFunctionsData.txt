@@ -1,0 +1,13 @@
+new pointer parameters (add these to `PointerFunctionDataIntents` in UserProvidedData.cs:
+{ ("Mix_OpenAudio", "spec"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:287:34
+{ ("Mix_QuerySpec", "format"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:319:34
+{ ("Mix_LoadWAV_IO", "src"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:393:41
+{ ("Mix_LoadMUS_IO", "src"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:509:41
+{ ("Mix_LoadMUSType_IO", "src"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:566:41
+{ ("Mix_SetPostMix", "arg"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:972:34
+{ ("Mix_HookMusic", "arg"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1018:34
+{ ("Mix_GetMusicHookData", "__return"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1053:36
+{ ("Mix_RegisterEffect", "arg"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1164:34
+{ ("Mix_EachSoundFont", "data"), PointerFunctionDataIntent.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2472:34
+
+//DONE

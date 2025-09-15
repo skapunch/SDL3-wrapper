@@ -28,6 +28,9 @@ internal class RawFFIEntry
     [JsonPropertyName("return-type")]
     public RawFFIEntry? ReturnType { get; }
 
+    [JsonPropertyName("storage-class")]
+    public string? StorageClass { get; }
+
     [JsonPropertyName("size")]
     public uint? Size { get; }
 

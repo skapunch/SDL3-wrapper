@@ -55,34 +55,34 @@ internal static class UserProvidedData
         { ("SDL_BindGPUVertexStorageBuffers", "storage_buffers"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_gpu.h:2650:34
         { ("SDL_BindGPUVertexStorageTextures", "storage_textures"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_gpu.h:2631:34
         { ("SDL_BlitGPUTexture", "info"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3218:34
-        { ("SDL_BlitSurface", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
-        { ("SDL_BlitSurface", "dstrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
-        { ("SDL_BlitSurface", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
-        { ("SDL_BlitSurface", "srcrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
-        { ("SDL_BlitSurface9Grid", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
-        { ("SDL_BlitSurface9Grid", "dstrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
-        { ("SDL_BlitSurface9Grid", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
-        { ("SDL_BlitSurface9Grid", "srcrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
-        { ("SDL_BlitSurfaceScaled", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
-        { ("SDL_BlitSurfaceScaled", "dstrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
-        { ("SDL_BlitSurfaceScaled", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
-        { ("SDL_BlitSurfaceScaled", "srcrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
-        { ("SDL_BlitSurfaceTiled", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
-        { ("SDL_BlitSurfaceTiled", "dstrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
-        { ("SDL_BlitSurfaceTiled", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
-        { ("SDL_BlitSurfaceTiled", "srcrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
-        { ("SDL_BlitSurfaceTiledWithScale", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
-        { ("SDL_BlitSurfaceTiledWithScale", "dstrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
-        { ("SDL_BlitSurfaceTiledWithScale", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
-        { ("SDL_BlitSurfaceTiledWithScale", "srcrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
-        { ("SDL_BlitSurfaceUnchecked", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
-        { ("SDL_BlitSurfaceUnchecked", "dstrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
-        { ("SDL_BlitSurfaceUnchecked", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
-        { ("SDL_BlitSurfaceUnchecked", "srcrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
-        { ("SDL_BlitSurfaceUncheckedScaled", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
-        { ("SDL_BlitSurfaceUncheckedScaled", "dstrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
-        { ("SDL_BlitSurfaceUncheckedScaled", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
-        { ("SDL_BlitSurfaceUncheckedScaled", "srcrect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
+        { ("SDL_BlitSurface", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
+        { ("SDL_BlitSurface", "dstrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
+        { ("SDL_BlitSurface", "src"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
+        { ("SDL_BlitSurface", "srcrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1077:34
+        { ("SDL_BlitSurface9Grid", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
+        { ("SDL_BlitSurface9Grid", "dstrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
+        { ("SDL_BlitSurface9Grid", "src"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
+        { ("SDL_BlitSurface9Grid", "srcrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1246:34
+        { ("SDL_BlitSurfaceScaled", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
+        { ("SDL_BlitSurfaceScaled", "dstrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
+        { ("SDL_BlitSurfaceScaled", "src"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
+        { ("SDL_BlitSurfaceScaled", "srcrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1127:34
+        { ("SDL_BlitSurfaceTiled", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
+        { ("SDL_BlitSurfaceTiled", "dstrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
+        { ("SDL_BlitSurfaceTiled", "src"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
+        { ("SDL_BlitSurfaceTiled", "srcrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1179:34
+        { ("SDL_BlitSurfaceTiledWithScale", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
+        { ("SDL_BlitSurfaceTiledWithScale", "dstrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
+        { ("SDL_BlitSurfaceTiledWithScale", "src"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
+        { ("SDL_BlitSurfaceTiledWithScale", "srcrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1209:34
+        { ("SDL_BlitSurfaceUnchecked", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
+        { ("SDL_BlitSurfaceUnchecked", "dstrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
+        { ("SDL_BlitSurfaceUnchecked", "src"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
+        { ("SDL_BlitSurfaceUnchecked", "srcrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1102:34
+        { ("SDL_BlitSurfaceUncheckedScaled", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
+        { ("SDL_BlitSurfaceUncheckedScaled", "dstrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
+        { ("SDL_BlitSurfaceUncheckedScaled", "src"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
+        { ("SDL_BlitSurfaceUncheckedScaled", "srcrect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1153:34
         { ("SDL_ClearSurface", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:952:34
         { ("SDL_CompareAndSwapAtomicInt", "a"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_atomic.h:348:34
         { ("SDL_CompareAndSwapAtomicPointer", "a"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_atomic.h:548:34
@@ -123,24 +123,24 @@ internal static class UserProvidedData
         { ("SDL_CreateSurfacePalette", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:278:43
         { ("SDL_CreateTexture", "__return"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:544:43
         { ("SDL_CreateTextureFromSurface", "__return"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:572:43
-        { ("SDL_CreateTextureFromSurface", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:555:43
+        { ("SDL_CreateTextureFromSurface", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:555:43
         { ("SDL_CreateTextureWithProperties", "__return"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:685:43
         { ("SDL_CreateWindowAndRenderer", "renderer"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:194:34
         { ("SDL_CreateWindowAndRenderer", "window"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:194:34
         { ("SDL_DateTimeToTime", "dt"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_time.h:146:34
-        { ("SDL_DestroyPalette", "palette"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_pixels.h:877:34
-        { ("SDL_DestroySurface", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:183:34
-        { ("SDL_DestroyTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:2299:34
+        { ("SDL_DestroyPalette", "palette"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_pixels.h:877:34
+        { ("SDL_DestroySurface", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:183:34
+        { ("SDL_DestroyTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:2299:34
         { ("SDL_DownloadFromGPUBuffer", "destination"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3179:34
         { ("SDL_DownloadFromGPUBuffer", "source"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3179:34
         { ("SDL_DownloadFromGPUTexture", "destination"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3162:34
         { ("SDL_DownloadFromGPUTexture", "source"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3162:34
         { ("SDL_DuplicateSurface", "__return"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:790:43
         { ("SDL_DuplicateSurface", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:774:43
-        { ("SDL_FillSurfaceRect", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:977:34
-        { ("SDL_FillSurfaceRect", "rect"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_surface.h:977:34
-        { ("SDL_FillSurfaceRects", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1002:34
-        { ("SDL_FillSurfaceRects", "rects"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_surface.h:1002:34
+        { ("SDL_FillSurfaceRect", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:977:34
+        { ("SDL_FillSurfaceRect", "rect"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:977:34
+        { ("SDL_FillSurfaceRects", "dst"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1002:34
+        { ("SDL_FillSurfaceRects", "rects"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_surface.h:1002:34
         { ("SDL_FlipSurface", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:756:34
         { ("SDL_GL_GetAttribute", "value"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_video.h:2648:34
         { ("SDL_GL_GetSwapInterval", "interval"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_video.h:2813:34
@@ -287,7 +287,7 @@ internal static class UserProvidedData
         { ("SDL_GetRenderTarget", "__return"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1355:43
         { ("SDL_GetRenderVSync", "vsync"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:2426:34
         { ("SDL_GetRenderViewport", "rect"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:1526:34
-        { ("SDL_GetRendererFromTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:848:44
+        { ("SDL_GetRendererFromTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:848:44
         { ("SDL_GetSensorData", "data"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_sensor.h:280:34
         { ("SDL_GetSensors", "count"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_sensor.h:151:44
         { ("SDL_GetStorageFileSize", "length"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_storage.h:263:34
@@ -313,23 +313,23 @@ internal static class UserProvidedData
         { ("SDL_GetTextInputArea", "cursor"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_keyboard.h:518:34
         { ("SDL_GetTextInputArea", "rect"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_keyboard.h:518:34
         { ("SDL_GetTextureAlphaMod", "alpha"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:1018:34
-        { ("SDL_GetTextureAlphaMod", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1035:34
+        { ("SDL_GetTextureAlphaMod", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1035:34
         { ("SDL_GetTextureAlphaModFloat", "alpha"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:1036:34
-        { ("SDL_GetTextureAlphaModFloat", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1053:34
-        { ("SDL_GetTextureBlendMode", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1088:34
+        { ("SDL_GetTextureAlphaModFloat", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1053:34
+        { ("SDL_GetTextureBlendMode", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1088:34
         { ("SDL_GetTextureColorMod", "b"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:928:34
         { ("SDL_GetTextureColorMod", "g"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:928:34
         { ("SDL_GetTextureColorMod", "r"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:928:34
-        { ("SDL_GetTextureColorMod", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:945:34
+        { ("SDL_GetTextureColorMod", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:945:34
         { ("SDL_GetTextureColorModFloat", "b"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:948:34
         { ("SDL_GetTextureColorModFloat", "g"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:948:34
         { ("SDL_GetTextureColorModFloat", "r"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:948:34
-        { ("SDL_GetTextureColorModFloat", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:965:34
-        { ("SDL_GetTextureProperties", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:808:46
+        { ("SDL_GetTextureColorModFloat", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:965:34
+        { ("SDL_GetTextureProperties", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:808:46
         { ("SDL_GetTextureScaleMode", "scaleMode"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:1107:34
-        { ("SDL_GetTextureScaleMode", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1124:34
+        { ("SDL_GetTextureScaleMode", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1124:34
         { ("SDL_GetTextureSize", "h"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:848:34
-        { ("SDL_GetTextureSize", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:865:34
+        { ("SDL_GetTextureSize", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:865:34
         { ("SDL_GetTextureSize", "w"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:848:34
         { ("SDL_GetTouchDevices", "count"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_touch.h:93:43
         { ("SDL_GetTouchFingers", "__return"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_touch.h:129:43
@@ -380,16 +380,16 @@ internal static class UserProvidedData
         { ("SDL_LockTexture", "pitch"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:1240:34
         { ("SDL_LockTexture", "pixels"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:1240:34
         { ("SDL_LockTexture", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1240:34
-        { ("SDL_LockTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1257:34
+        { ("SDL_LockTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1257:34
         { ("SDL_LockTextureToSurface", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1278:34
         { ("SDL_LockTextureToSurface", "surface"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_render.h:1278:34
-        { ("SDL_LockTextureToSurface", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1295:34
+        { ("SDL_LockTextureToSurface", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1295:34
         { ("SDL_MapRGB", "format"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_pixels.h:915:36
         { ("SDL_MapRGB", "palette"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_pixels.h:915:36
         { ("SDL_MapRGBA", "format"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_pixels.h:954:36
         { ("SDL_MapRGBA", "palette"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_pixels.h:954:36
-        { ("SDL_MapSurfaceRGB", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1276:36
-        { ("SDL_MapSurfaceRGBA", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1307:36
+        { ("SDL_MapSurfaceRGB", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1276:36
+        { ("SDL_MapSurfaceRGBA", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:1307:36
         { ("SDL_MixAudio", "dst"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_audio.h:1951:34
         { ("SDL_MixAudio", "src"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_audio.h:1951:34
         { ("SDL_OpenAudioDevice", "spec"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_audio.h:641:47
@@ -436,10 +436,10 @@ internal static class UserProvidedData
         { ("SDL_RenderFillRect", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1978:34
         { ("SDL_RenderFillRects", "rects"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_render.h:1996:34
         { ("SDL_RenderGeometry", "indices"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_render.h:2134:34
-        { ("SDL_RenderGeometry", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:2173:34
+        { ("SDL_RenderGeometry", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:2173:34
         { ("SDL_RenderGeometry", "vertices"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_render.h:2134:34
         { ("SDL_RenderGeometryRaw", "color"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:2166:34
-        { ("SDL_RenderGeometryRaw", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:2205:34
+        { ("SDL_RenderGeometryRaw", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:2205:34
         { ("SDL_RenderGeometryRaw", "uv"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:2166:34
         { ("SDL_RenderGeometryRaw", "xy"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:2166:34
         { ("SDL_RenderLines", "points"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_render.h:1925:34
@@ -450,17 +450,17 @@ internal static class UserProvidedData
         { ("SDL_RenderRects", "rects"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_render.h:1960:34
         { ("SDL_RenderTexture", "dstrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2018:34
         { ("SDL_RenderTexture", "srcrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2018:34
-        { ("SDL_RenderTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:2057:34
+        { ("SDL_RenderTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:2057:34
         { ("SDL_RenderTexture9Grid", "dstrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2110:34
         { ("SDL_RenderTexture9Grid", "srcrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2110:34
-        { ("SDL_RenderTexture9Grid", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:2149:34
+        { ("SDL_RenderTexture9Grid", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:2149:34
         { ("SDL_RenderTextureRotated", "center"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2046:34
         { ("SDL_RenderTextureRotated", "dstrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2046:34
         { ("SDL_RenderTextureRotated", "srcrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2046:34
-        { ("SDL_RenderTextureRotated", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:2085:34
+        { ("SDL_RenderTextureRotated", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:2085:34
         { ("SDL_RenderTextureTiled", "dstrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2076:34
         { ("SDL_RenderTextureTiled", "srcrect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:2076:34
-        { ("SDL_RenderTextureTiled", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:2115:34
+        { ("SDL_RenderTextureTiled", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:2115:34
         { ("SDL_ReportAssertion", "data"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_assert.h:245:45
         { ("SDL_SaveBMP", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:504:34
         { ("SDL_SaveBMP_IO", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:483:34
@@ -480,57 +480,57 @@ internal static class UserProvidedData
         { ("SDL_SetPaletteColors", "colors"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_pixels.h:863:34
         { ("SDL_SetPaletteColors", "palette"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_pixels.h:863:34
         { ("SDL_SetRenderClipRect", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1586:34
-        { ("SDL_SetRenderTarget", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1338:34
+        { ("SDL_SetRenderTarget", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1338:34
         { ("SDL_SetRenderViewport", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1509:34
         { ("SDL_SetSurfaceAlphaMod", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:657:34
         { ("SDL_SetSurfaceBlendMode", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:690:34
         { ("SDL_SetSurfaceClipRect", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_surface.h:725:34
-        { ("SDL_SetSurfaceClipRect", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:725:34
-        { ("SDL_SetSurfaceColorKey", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:561:34
-        { ("SDL_SetSurfaceColorMod", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:619:34
-        { ("SDL_SetSurfaceColorspace", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:233:34
-        { ("SDL_SetSurfacePalette", "palette"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:295:34
-        { ("SDL_SetSurfacePalette", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:295:34
-        { ("SDL_SetSurfaceRLE", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:523:34
+        { ("SDL_SetSurfaceClipRect", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:725:34
+        { ("SDL_SetSurfaceColorKey", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:561:34
+        { ("SDL_SetSurfaceColorMod", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:619:34
+        { ("SDL_SetSurfaceColorspace", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:233:34
+        { ("SDL_SetSurfacePalette", "palette"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:295:34
+        { ("SDL_SetSurfacePalette", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:295:34
+        { ("SDL_SetSurfaceRLE", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:523:34
         { ("SDL_SetTextInputArea", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_keyboard.h:499:34
-        { ("SDL_SetTextureAlphaMod", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:991:34
-        { ("SDL_SetTextureAlphaModFloat", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1017:34
-        { ("SDL_SetTextureBlendMode", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1072:34
-        { ("SDL_SetTextureColorMod", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:894:34
-        { ("SDL_SetTextureColorModFloat", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:924:34
-        { ("SDL_SetTextureScaleMode", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1108:34
+        { ("SDL_SetTextureAlphaMod", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:991:34
+        { ("SDL_SetTextureAlphaModFloat", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1017:34
+        { ("SDL_SetTextureBlendMode", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1072:34
+        { ("SDL_SetTextureColorMod", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:894:34
+        { ("SDL_SetTextureColorModFloat", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:924:34
+        { ("SDL_SetTextureScaleMode", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1108:34
         { ("SDL_SetWindowFullscreenMode", "mode"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_video.h:763:34
-        { ("SDL_SetWindowIcon", "icon"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_video.h:1366:34
+        { ("SDL_SetWindowIcon", "icon"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_video.h:1366:34
         { ("SDL_SetWindowMouseRect", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_video.h:2169:34
-        { ("SDL_SetWindowShape", "shape"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_video.h:2396:34
+        { ("SDL_SetWindowShape", "shape"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_video.h:2396:34
         { ("SDL_ShouldInit", "state"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_mutex.h:864:34
         { ("SDL_ShouldQuit", "state"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_mutex.h:885:34
         { ("SDL_ShowMessageBox", "buttonid"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_messagebox.h:164:34
         { ("SDL_ShowMessageBox", "messageboxdata"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_messagebox.h:164:34
         { ("SDL_ShowOpenFileDialog", "filters"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_dialog.h:154:34
         { ("SDL_ShowSaveFileDialog", "filters"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_dialog.h:209:34
-        { ("SDL_SurfaceHasAlternateImages", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:347:34
-        { ("SDL_SurfaceHasColorKey", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:576:34
-        { ("SDL_SurfaceHasRLE", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:537:34
+        { ("SDL_SurfaceHasAlternateImages", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:347:34
+        { ("SDL_SurfaceHasColorKey", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:576:34
+        { ("SDL_SurfaceHasRLE", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:537:34
         { ("SDL_TimeToDateTime", "dt"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_time.h:131:34
         { ("SDL_TimeToWindows", "dwHighDateTime"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_time.h:162:34
         { ("SDL_TimeToWindows", "dwLowDateTime"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_time.h:162:34
         { ("SDL_UnbindAudioStreams", "streams"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_audio.h:879:34
-        { ("SDL_UnlockSurface", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:422:34
-        { ("SDL_UnlockTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1316:34
+        { ("SDL_UnlockSurface", "surface"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_surface.h:422:34
+        { ("SDL_UnlockTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1316:34
         { ("SDL_UpdateHapticEffect", "data"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_haptic.h:1206:34
         { ("SDL_UpdateNVTexture", "UVplane"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:1205:34
         { ("SDL_UpdateNVTexture", "Yplane"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:1205:34
         { ("SDL_UpdateNVTexture", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1205:34
-        { ("SDL_UpdateNVTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1222:34
+        { ("SDL_UpdateNVTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1222:34
         { ("SDL_UpdateTexture", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1141:34
-        { ("SDL_UpdateTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1158:34
+        { ("SDL_UpdateTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1158:34
         { ("SDL_UpdateWindowSurfaceRects", "rects"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_video.h:2052:34
         { ("SDL_UpdateYUVTexture", "Uplane"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:1173:34
         { ("SDL_UpdateYUVTexture", "Vplane"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:1173:34
         { ("SDL_UpdateYUVTexture", "Yplane"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_render.h:1173:34
         { ("SDL_UpdateYUVTexture", "rect"), PointerFunctionDataIntent.Ref }, // /usr/local/include/SDL3/SDL_render.h:1173:34
-        { ("SDL_UpdateYUVTexture", "texture"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_render.h:1190:34
+        { ("SDL_UpdateYUVTexture", "texture"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_render.h:1190:34
         { ("SDL_UploadToGPUBuffer", "destination"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3093:34
         { ("SDL_UploadToGPUBuffer", "source"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3093:34
         { ("SDL_UploadToGPUTexture", "destination"), PointerFunctionDataIntent.In }, // /usr/local/include/SDL3/SDL_gpu.h:3071:34
@@ -543,15 +543,19 @@ internal static class UserProvidedData
         { ("SDL_WriteSurfacePixel", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1381:34
         { ("SDL_WriteSurfacePixelFloat", "surface"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_surface.h:1401:34
         { ("SDL_hid_enumerate", "__return"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_hidapi.h:240:51
-        { ("SDL_hid_free_enumeration", "devs"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:252:34
+        { ("SDL_hid_free_enumeration", "devs"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_hidapi.h:252:34
         { ("SDL_hid_get_device_info", "__return"), PointerFunctionDataIntent.Pointer }, // /usr/local/include/SDL3/SDL_hidapi.h:519:51
-        { ("SDL_hid_get_feature_report", "data"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:420:33
-        { ("SDL_hid_get_input_report", "data"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:443:33
-        { ("SDL_hid_get_report_descriptor", "buf"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:535:33
-        { ("SDL_hid_read", "data"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:353:33
-        { ("SDL_hid_read_timeout", "data"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:332:33
-        { ("SDL_hid_send_feature_report", "data"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:397:33
-        { ("SDL_hid_write", "data"), PointerFunctionDataIntent.Unknown }, // /usr/local/include/SDL3/SDL_hidapi.h:311:33
+
+        //Set the first byte of data to the Report ID of the report to be read. 
+        // Make sure to allow space for this extra byte in data. 
+        // Upon return, the first byte will still contain the Report ID, and the report data will start in data[1].
+        { ("SDL_hid_get_feature_report", "data"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_hidapi.h:420:33
+        { ("SDL_hid_get_input_report", "data"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_hidapi.h:443:33
+        { ("SDL_hid_get_report_descriptor", "buf"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_hidapi.h:535:33
+        { ("SDL_hid_read", "data"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_hidapi.h:353:33
+        { ("SDL_hid_read_timeout", "data"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_hidapi.h:332:33
+        { ("SDL_hid_send_feature_report", "data"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_hidapi.h:397:33
+        { ("SDL_hid_write", "data"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_hidapi.h:311:33
         { ("SDL_GetAsyncIOResult", "outcome"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_asyncio.h:438:34
         { ("SDL_WaitAsyncIOResult", "outcome"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_asyncio.h:482:34
         { ("SDL_GetClosestFullscreenDisplayMode", "closest"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_video.h:800:34
@@ -566,7 +570,213 @@ internal static class UserProvidedData
         { ("SDL_CreateTray", "icon"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_tray.h:115:39
         { ("SDL_SetTrayIcon", "icon"), PointerFunctionDataIntent.IntPtr }, // /usr/local/include/SDL3/SDL_tray.h:127:34
         { ("SDL_GetTrayEntries", "__return"), PointerFunctionDataIntent.Array }, // /usr/local/include/SDL3/SDL_tray.h:240:51
-        { ("SDL_GetTrayEntries", "size"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_tray.h:240:51
+        { ("SDL_GetTrayEntries", "count"), PointerFunctionDataIntent.Out }, // /usr/local/include/SDL3/SDL_tray.h:240:51
+
+        { ("IMG_GetAnimationDecoderFrame", "frame"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2704:34
+        { ("IMG_GetAnimationDecoderFrame", "duration"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2704:34
+        { ("SDL_StretchSurface", "src"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3/SDL_surface.h:1298:34
+        { ("SDL_StretchSurface", "srcrect"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3/SDL_surface.h:1298:34
+        { ("SDL_StretchSurface", "dst"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3/SDL_surface.h:1298:34
+        { ("SDL_StretchSurface", "dstrect"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3/SDL_surface.h:1298:34
+        { ("IMG_LoadTyped_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:133:43
+        { ("IMG_Load", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:178:43
+        { ("IMG_Load_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:232:43
+        { ("IMG_LoadTexture", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:267:43
+        { ("IMG_LoadTexture_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:314:43
+        { ("IMG_LoadTextureTyped_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:369:43
+        { ("IMG_LoadAVIF_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1178:43
+        { ("IMG_LoadICO_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1212:43
+        { ("IMG_LoadCUR_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1246:43
+        { ("IMG_LoadBMP_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1280:43
+        { ("IMG_LoadGIF_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1314:43
+        { ("IMG_LoadJPG_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1348:43
+        { ("IMG_LoadJXL_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1382:43
+        { ("IMG_LoadLBM_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1416:43
+        { ("IMG_LoadPCX_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1450:43
+        { ("IMG_LoadPNG_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1484:43
+        { ("IMG_LoadPNM_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1518:43
+        { ("IMG_LoadSVG_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1552:43
+        { ("IMG_LoadQOI_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1586:43
+        { ("IMG_LoadTGA_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1620:43
+        { ("IMG_LoadTIF_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1654:43
+        { ("IMG_LoadXCF_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1688:43
+        { ("IMG_LoadXPM_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1722:43
+        { ("IMG_LoadXV_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1756:43
+        { ("IMG_LoadWEBP_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1790:43
+        { ("IMG_LoadSizedSVG_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1811:43
+        { ("IMG_ReadXPMFromArray", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1830:43
+        { ("IMG_ReadXPMFromArrayToRGB888", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1849:43
+        { ("IMG_Save", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1874:34
+        { ("IMG_SaveTyped_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1906:34
+        { ("IMG_SaveAVIF", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1924:34
+        { ("IMG_SaveAVIF_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1947:34
+        { ("IMG_SaveBMP", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1969:34
+        { ("IMG_SaveBMP_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:1996:34
+        { ("IMG_SaveGIF", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2012:34
+        { ("IMG_SaveGIF_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2033:34
+        { ("IMG_SaveJPG", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2051:34
+        { ("IMG_SaveJPG_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2074:34
+        { ("IMG_SavePNG", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2090:34
+        { ("IMG_SavePNG_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2111:34
+        { ("IMG_SaveTGA", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2127:34
+        { ("IMG_SaveTGA_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2148:34
+        { ("IMG_SaveWEBP", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2168:34
+        { ("IMG_SaveWEBP_IO", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2193:34
+        { ("IMG_LoadAnimation", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2226:45
+        { ("IMG_LoadAnimation_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2253:45
+        { ("IMG_LoadAnimationTyped_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2287:45
+        { ("IMG_FreeAnimation", "anim"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2306:34
+        { ("IMG_LoadAPNGAnimation_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2332:44
+        { ("IMG_LoadAVIFAnimation_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2358:44
+        { ("IMG_LoadGIFAnimation_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2381:45
+        { ("IMG_LoadWEBPAnimation_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2404:45
+        { ("IMG_AddAnimationEncoderFrame", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_image/SDL_image.h:2522:34
+        { ("TTF_GetFreeTypeVersion", "major"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:91:34
+        { ("TTF_GetFreeTypeVersion", "minor"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:91:34
+        { ("TTF_GetFreeTypeVersion", "patch"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:91:34
+        { ("TTF_GetHarfBuzzVersion", "major"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:106:34
+        { ("TTF_GetHarfBuzzVersion", "minor"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:106:34
+        { ("TTF_GetHarfBuzzVersion", "patch"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:106:34
+        { ("TTF_GetFontDPI", "hdpi"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:439:34
+        { ("TTF_GetFontDPI", "vdpi"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:439:34
+        { ("TTF_GetGlyphImage", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1162:43
+        { ("TTF_GetGlyphImage", "image_type"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1162:43
+        { ("TTF_GetGlyphImageForIndex", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1182:43
+        { ("TTF_GetGlyphImageForIndex", "image_type"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1182:43
+        { ("TTF_GetGlyphMetrics", "minx"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1213:34
+        { ("TTF_GetGlyphMetrics", "maxx"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1213:34
+        { ("TTF_GetGlyphMetrics", "miny"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1213:34
+        { ("TTF_GetGlyphMetrics", "maxy"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1213:34
+        { ("TTF_GetGlyphMetrics", "advance"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1213:34
+        { ("TTF_GetGlyphKerning", "kerning"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1231:34
+        { ("TTF_GetStringSize", "w"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1253:34
+        { ("TTF_GetStringSize", "h"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1253:34
+        { ("TTF_GetStringSizeWrapped", "w"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1281:34
+        { ("TTF_GetStringSizeWrapped", "h"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1281:34
+        { ("TTF_MeasureString", "measured_width"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1309:34
+        { ("TTF_MeasureString", "measured_length"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1309:34
+        { ("TTF_RenderText_Solid", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1346:43
+        { ("TTF_RenderText_Solid_Wrapped", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1382:43
+        { ("TTF_RenderGlyph_Solid", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1411:43
+        { ("TTF_RenderText_Shaded", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1449:43
+        { ("TTF_RenderText_Shaded_Wrapped", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1487:43
+        { ("TTF_RenderGlyph_Shaded", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1518:43
+        { ("TTF_RenderText_Blended", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1554:43
+        { ("TTF_RenderText_Blended_Wrapped", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1590:43
+        { ("TTF_RenderGlyph_Blended", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1619:43
+        { ("TTF_RenderText_LCD", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1656:43
+        { ("TTF_RenderText_LCD_Wrapped", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1694:43
+        { ("TTF_RenderGlyph_LCD", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1725:43
+        { ("TTF_DrawSurfaceText", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1811:34
+        { ("TTF_DrawSurfaceText", "surface"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1811:34
+        { ("TTF_DrawRendererText", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:1901:34
+        { ("TTF_GetGPUTextDrawData", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2016:56
+        { ("TTF_GetGPUTextDrawData", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2016:56
+        { ("TTF_CreateText", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2102:40
+        { ("TTF_GetTextProperties", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2116:46
+        { ("TTF_SetTextEngine", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2135:34
+        { ("TTF_GetTextEngine", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2151:46
+        { ("TTF_GetTextEngine", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2151:46
+        { ("TTF_SetTextFont", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2174:34
+        { ("TTF_GetTextFont", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2190:40
+        { ("TTF_SetTextDirection", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2208:34
+        { ("TTF_GetTextDirection", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2223:43
+        { ("TTF_SetTextScript", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2244:34
+        { ("TTF_GetTextScript", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2264:36
+        { ("TTF_SetTextColor", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2287:34
+        { ("TTF_SetTextColorFloat", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2310:34
+        { ("TTF_GetTextColor", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2335:34
+        { ("TTF_GetTextColor", "r"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2335:34
+        { ("TTF_GetTextColor", "g"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2335:34
+        { ("TTF_GetTextColor", "b"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2335:34
+        { ("TTF_GetTextColor", "a"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2335:34
+        { ("TTF_GetTextColorFloat", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2360:34
+        { ("TTF_GetTextColorFloat", "r"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2360:34
+        { ("TTF_GetTextColorFloat", "g"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2360:34
+        { ("TTF_GetTextColorFloat", "b"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2360:34
+        { ("TTF_GetTextColorFloat", "a"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2360:34
+        { ("TTF_SetTextPosition", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2381:34
+        { ("TTF_GetTextPosition", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2399:34
+        { ("TTF_GetTextPosition", "x"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2399:34
+        { ("TTF_GetTextPosition", "y"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2399:34
+        { ("TTF_SetTextWrapWidth", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2419:34
+        { ("TTF_GetTextWrapWidth", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2437:34
+        { ("TTF_GetTextWrapWidth", "wrap_width"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2437:34
+        { ("TTF_SetTextWrapWhitespaceVisible", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2462:34
+        { ("TTF_TextWrapWhitespaceVisible", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2478:34
+        { ("TTF_SetTextString", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2501:34
+        { ("TTF_InsertTextString", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2528:34
+        { ("TTF_AppendTextString", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2551:34
+        { ("TTF_DeleteTextString", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2577:34
+        { ("TTF_GetTextSize", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2598:34
+        { ("TTF_GetTextSize", "w"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2598:34
+        { ("TTF_GetTextSize", "h"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2598:34
+        { ("TTF_GetTextSubString", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2658:34
+        { ("TTF_GetTextSubString", "substring"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2658:34
+        { ("TTF_GetTextSubStringForLine", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2681:34
+        { ("TTF_GetTextSubStringForLine", "substring"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2681:34
+        { ("TTF_GetTextSubStringsForRange", "__return"), PointerFunctionDataIntent.Array }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2702:46
+        { ("TTF_GetTextSubStringsForRange", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2702:46
+        { ("TTF_GetTextSubStringsForRange", "count"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2702:46
+        { ("TTF_GetTextSubStringForPoint", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2724:34
+        { ("TTF_GetTextSubStringForPoint", "substring"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2724:34
+        { ("TTF_GetPreviousTextSubString", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2744:34
+        { ("TTF_GetPreviousTextSubString", "substring"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2744:34
+        { ("TTF_GetPreviousTextSubString", "previous"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2744:34
+        { ("TTF_GetNextTextSubString", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2763:34
+        { ("TTF_GetNextTextSubString", "substring"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2763:34
+        { ("TTF_GetNextTextSubString", "next"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2763:34
+        { ("TTF_UpdateText", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2781:34
+        { ("TTF_DestroyText", "text"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2795:34
+
+        //MIXER
+        { ("Mix_QuerySpec", "frequency"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:319:34
+        { ("Mix_QuerySpec", "channels"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:319:34
+        { ("Mix_LoadWAV_IO", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:393:41
+        { ("Mix_LoadWAV", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:434:41
+        { ("Mix_LoadMUS", "__return"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:465:41
+        { ("Mix_LoadMUS_IO", "__return"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:509:41
+        { ("Mix_LoadMUSType_IO", "__return"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:566:41
+        { ("Mix_QuickLoad_WAV", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:601:41
+        { ("Mix_QuickLoad_WAV", "mem"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:601:41
+        { ("Mix_QuickLoad_RAW", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:621:41
+        { ("Mix_QuickLoad_RAW", "mem"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:621:41
+        { ("Mix_FreeChunk", "chunk"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:642:34
+        { ("Mix_FreeMusic", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:661:34
+        { ("Mix_GetMusicType", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:809:43
+        { ("Mix_GetMusicTitle", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:839:41
+        { ("Mix_GetMusicTitleTag", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:866:41
+        { ("Mix_GetMusicArtistTag", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:888:41
+        { ("Mix_GetMusicAlbumTag", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:910:41
+        { ("Mix_GetMusicCopyrightTag", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:932:41
+        { ("Mix_PlayChannel", "chunk"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1552:33
+        { ("Mix_PlayChannelTimed", "chunk"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1585:33
+        { ("Mix_PlayMusic", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1609:34
+        { ("Mix_FadeInMusic", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1637:34
+        { ("Mix_FadeInMusicPos", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1677:34
+        { ("Mix_FadeInChannel", "chunk"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1717:33
+        { ("Mix_FadeInChannelTimed", "chunk"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1761:33
+        { ("Mix_VolumeChunk", "chunk"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1817:33
+        { ("Mix_GetMusicVolume", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1848:33
+        { ("Mix_StartTrack", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2260:34
+        { ("Mix_GetNumTracks", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2273:33
+        { ("Mix_GetMusicPosition", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2301:36
+        { ("Mix_MusicDuration", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2315:36
+        { ("Mix_GetMusicLoopStartTime", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2330:36
+        { ("Mix_GetMusicLoopEndTime", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2345:36
+        { ("Mix_GetMusicLoopLengthTime", "music"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2360:36
+        { ("Mix_GetChunk", "__return"), PointerFunctionDataIntent.Pointer }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2518:41
+
+        { ("Mix_OpenAudio", "spec"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:287:34
+        { ("Mix_QuerySpec", "format"), PointerFunctionDataIntent.Out }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:319:34
+        { ("Mix_LoadWAV_IO", "src"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:393:41
+        { ("Mix_LoadMUS_IO", "src"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:509:41
+        { ("Mix_LoadMUSType_IO", "src"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:566:41
+        { ("Mix_SetPostMix", "arg"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:972:34
+        { ("Mix_HookMusic", "arg"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1018:34
+        { ("Mix_GetMusicHookData", "__return"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1053:36
+        { ("Mix_RegisterEffect", "arg"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1164:34
+        { ("Mix_EachSoundFont", "data"), PointerFunctionDataIntent.IntPtr }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2472:34
     };
 
     internal static readonly Dictionary<string, ReturnedCharPtrMemoryOwner> ReturnedCharPtrMemoryOwners = new()
@@ -626,11 +836,24 @@ internal static class UserProvidedData
         { "SDL_GetRenderDriver", ReturnedCharPtrMemoryOwner.SDL }, // /usr/local/include/SDL3/SDL_render.h:172:42
         { "SDL_GetRendererName", ReturnedCharPtrMemoryOwner.SDL }, // /usr/local/include/SDL3/SDL_render.h:354:42
         { "SDL_GetRevision", ReturnedCharPtrMemoryOwner.SDL }, // /usr/local/include/SDL3/SDL_version.h:172:42
-        { "SDL_GetGamepadMappings", ReturnedCharPtrMemoryOwner.Unknown }, // /usr/local/include/SDL3/SDL_gamepad.h:423:37
-        { "SDL_GlobDirectory", ReturnedCharPtrMemoryOwner.Unknown }, // /usr/local/include/SDL3/SDL_filesystem.h:448:37
-        { "SDL_GlobStorageDirectory", ReturnedCharPtrMemoryOwner.Unknown }, // /usr/local/include/SDL3/SDL_storage.h:450:37
+        { "SDL_GetGamepadMappings", ReturnedCharPtrMemoryOwner.Caller }, // /usr/local/include/SDL3/SDL_gamepad.h:423:37
+        { "SDL_GlobDirectory", ReturnedCharPtrMemoryOwner.Caller }, // /usr/local/include/SDL3/SDL_filesystem.h:448:37
+        { "SDL_GlobStorageDirectory", ReturnedCharPtrMemoryOwner.Caller }, // /usr/local/include/SDL3/SDL_storage.h:450:37
         { "SDL_GetCurrentDirectory", ReturnedCharPtrMemoryOwner.Caller }, // /usr/local/include/SDL3/SDL_filesystem.h:489:36
         { "SDL_GetTrayEntryLabel", ReturnedCharPtrMemoryOwner.SDL }, // /usr/local/include/SDL3/SDL_tray.h:312:41
+
+        { "TTF_GetFontFamilyName", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:897:42
+        { "TTF_GetFontStyleName", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:915:42
+
+        { "Mix_GetChunkDecoder", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:706:42
+        { "Mix_GetMusicDecoder", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:773:42
+        { "Mix_GetMusicTitle", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:839:41
+        { "Mix_GetMusicTitleTag", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:866:41
+        { "Mix_GetMusicArtistTag", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:888:41
+        { "Mix_GetMusicAlbumTag", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:910:41
+        { "Mix_GetMusicCopyrightTag", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:932:41
+        { "Mix_GetSoundFonts", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2443:41
+        { "Mix_GetTimidityCfg", ReturnedCharPtrMemoryOwner.SDL }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2506:41
     };
 
     internal static readonly Dictionary<string, string> ReturnedArrayCountParamNames = new()
@@ -646,7 +869,10 @@ internal static class UserProvidedData
         { "SDL_GetKeyboardState", "numkeys" }, // /usr/local/include/SDL3/SDL_keyboard.h:144:42
         { "SDL_GetTouchFingers", "count" }, // /usr/local/include/SDL3/SDL_touch.h:129:43
         { "SDL_GetPreferredLocales", "count" }, // /usr/local/include/SDL3/SDL_locale.h:101:43
-        { "SDL_GetTrayEntries", "size" }, // /usr/local/include/SDL3/SDL_tray.h:240:51
+
+        // Change from size to count so that it will omit when compare to the SDL's function with same name
+        { "SDL_GetTrayEntries", "count" }, // /usr/local/include/SDL3/SDL_tray.h:240:51
+        { "TTF_GetTextSubStringsForRange", "count" }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_ttf/SDL_ttf.h:2702:46
     };
 
     internal static readonly Dictionary<string, DelegateDefinition> DelegateDefinitions = new()
@@ -742,6 +968,14 @@ internal static class UserProvidedData
         {
             "SDL_TrayCallback", new DelegateDefinition { ReturnType = "void", Parameters = [("IntPtr", "userdata"), ("IntPtr", "entry")] }
         }, // /usr/local/include/SDL3/SDL_tray.h:93:24
+
+        //mixer
+        { "Mix_MixCallback", new DelegateDefinition { ReturnType = "void", Parameters = [("IntPtr", "udata"),("byte*","stream"),("int","len")]} }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:934:24
+        { "Mix_MusicFinishedCallback", new DelegateDefinition { ReturnType = "void", Parameters = [] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1020:24
+        { "Mix_ChannelFinishedCallback", new DelegateDefinition { ReturnType = "void", Parameters = [("int","channel")] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1055:24
+        { "Mix_EffectFunc_t", new DelegateDefinition { ReturnType = "void", Parameters = [("int","chan"),("IntPtr","stream"),("int","len"),("IntPtr","udata")] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1095:24
+        { "Mix_EffectDone_t", new DelegateDefinition { ReturnType = "void", Parameters = [("int","chan"),("IntPtr","udata")] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1105:24
+        { "Mix_EachSoundFontCallback", new DelegateDefinition { ReturnType = "bool", Parameters = [("string","path"),("IntPtr","data")] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2445:24
     };
 
     internal static readonly Dictionary<string, string[]> FlagEnumDefinitions = new()
@@ -905,12 +1139,86 @@ internal static class UserProvidedData
                 "SDL_TRAYENTRY_CHECKED = 0x40000000u"
             ]
         }, // /usr/local/include/SDL3/SDL_tray.h:74:16
+        // {
+        //     "IMG_AnimationDecoderStatus", [
+        //         "IMG_DECODER_STATUS_INVALID = -1",    /**< The decoder is invalid */
+        //         "IMG_DECODER_STATUS_OK",              /**< The decoder is ready to decode the next frame */
+        //         "IMG_DECODER_STATUS_FAILED",          /**< The decoder failed to decode a frame, call SDL_GetError() for more information. */
+        //         "IMG_DECODER_STATUS_COMPLETE"         /**< No more frames available */
+        //     ]
+        // }, //NO!!
+        //{
+        //     "TTF_DrawCommand", [
+        //         "TTF_DRAW_COMMAND_NOOP",
+        //         "TTF_DRAW_COMMAND_FILL",
+        //         "TTF_DRAW_COMMAND_COPY"
+        //     ]
+        // },
+        // {
+        //     "TTF_HorizontalAlignment", [
+        //         "TTF_HORIZONTAL_ALIGN_INVALID = -1",
+        //         "TTF_HORIZONTAL_ALIGN_LEFT",
+        //         "TTF_HORIZONTAL_ALIGN_CENTER",
+        //         "TTF_HORIZONTAL_ALIGN_RIGHT"
+        //     ]
+        // },
+        // {
+        //     "TTF_Direction", [
+        //         "TTF_DIRECTION_INVALID = 0",
+        //         "TTF_DIRECTION_LTR = 4",        /**< Left to Right */
+        //         "TTF_DIRECTION_RTL",            /**< Right to Left */
+        //         "TTF_DIRECTION_TTB",            /**< Top to Bottom */
+        //         "TTF_DIRECTION_BTT"             /**< Bottom to Top */
+        //     ]
+        // },
+        // {
+        //     "TTF_ImageType", [
+        //         "TTF_IMAGE_INVALID",
+        //         "TTF_IMAGE_ALPHA",    /**< The color channels are white */
+        //         "TTF_IMAGE_COLOR",    /**< The color channels have image data */
+        //         "TTF_IMAGE_SDF",      /**< The alpha channel has signed distance field information */
+        //     ]
+        // },
+        // {
+        //     "TTF_GPUTextEngineWinding", [
+        //         "TTF_GPU_TEXTENGINE_WINDING_INVALID = -1",
+        //         "TTF_GPU_TEXTENGINE_WINDING_CLOCKWISE",
+        //         "TTF_GPU_TEXTENGINE_WINDING_COUNTER_CLOCKWISE"
+        //     ]
+        // },   //duplicate enums
+        {
+            "TTF_FontStyleFlags", [
+                "TTF_STYLE_NORMAL        = 0x00", /**< No special style */
+                "TTF_STYLE_BOLD          = 0x01", /**< Bold style */
+                "TTF_STYLE_ITALIC        = 0x02", /**< Italic style */
+                "TTF_STYLE_UNDERLINE     = 0x04", /**< Underlined text */
+                "TTF_STYLE_STRIKETHROUGH = 0x08" /**< Strikethrough text */
+            ]
+        },
+        {
+            "TTF_SubStringFlags", [
+                "TTF_SUBSTRING_DIRECTION_MASK  =  0x000000FF",  /**< The mask for the flow direction for this substring */
+                "TTF_SUBSTRING_TEXT_START      =  0x00000100",  /**< This substring contains the beginning of the text */
+                "TTF_SUBSTRING_LINE_START      =  0x00000200",  /**< This substring contains the beginning of line `line_index` */
+                "TTF_SUBSTRING_LINE_END        =  0x00000400",  /**< This substring contains the end of line `line_index` */
+                "TTF_SUBSTRING_TEXT_END        =  0x00000800"  /**< This substring contains the end of the text */
+                    ]
+        },
+        { "MIX_InitFlags", [
+            "MIX_INIT_FLAC     =  0x00000001",
+            "MIX_INIT_MOD       = 0x00000002",
+            "MIX_INIT_MP3       = 0x00000008",
+            "MIX_INIT_OGG       = 0x00000010",
+            "MIX_INIT_MID       = 0x00000020",
+            "MIX_INIT_OPUS      = 0x00000040",
+            "MIX_INIT_WAVPACK   = 0x00000080" 
+        ] }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:75:16
     };
 
     internal static readonly HashSet<string> FlagTypes =
     [
         "SDL_Keymod",
-        "SDL_GPUShaderFormat"
+        "SDL_GPUShaderFormat",
     ];
 
     internal static readonly string[] DeniedTypes = [];

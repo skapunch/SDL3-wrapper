@@ -2,7 +2,9 @@
 using System.Numerics;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace GenerateBindings;
 
@@ -57,7 +59,7 @@ internal static partial class Program
         }
     }
 
-    private static readonly List<string> DefinedTypes = new();
+  //  private static readonly List<string> DefinedTypes = new();
     private static readonly Dictionary<string, RawFFIEntry> TypedefMap = new();
     private static readonly HashSet<string> UnusedUserProvidedTypes = new();
     private static readonly Dictionary<string, string> ReservedWords = new()
@@ -68,37 +70,123 @@ internal static partial class Program
     private static readonly StructDefinitionType StructDefinition = new();
     private static readonly FunctionSignatureType FunctionSignature = new();
 
-    private static bool CoreMode = false;
+    //store the types defined and and used in specific context. ie. mixer
 
-    private static bool CheckCoreMode(string[] args)
-    {
-        return args.Contains("--core");
-    }
+    private static bool CoreMode = true;
+    private static bool Debug = false;
 
     private static DirectoryInfo GetSDL3Directory(string[] args)
     {
         return new DirectoryInfo(args[0]);
     }
 
-    private static int Main(string[] args)
+    //choose whether to export functions for specific module's function
+    private static readonly Dictionary<string, bool> ModuleToggle = new Dictionary<string, bool>(StringComparer.OrdinalIgnoreCase);
+
+    //{mixer},{mix_somehting1, mix_something2, mix_somehting3}
+    private static readonly Dictionary<string, HashSet<string>> ModuleReleventTypes = new();
+    private static bool greenLitModules = false;
+
+    //the designated base library
+    private static string baseLibrary = "";
+    
+    private static bool CheckModules(string[] args)
+    {
+        //starting from args[2] are the modules list
+        foreach (var arg in args.Skip(2))
+        {
+            if (arg == "debug") continue;
+            var parts = arg.Split('=', 2, StringSplitOptions.TrimEntries);
+            if (parts.Length == 2)
+            {
+                if (parts[0] != "base")
+                {
+                    if (bool.TryParse(parts[1], out bool state))
+                        ModuleToggle[parts[0]] = state;
+                    else
+                    {
+                        Console.WriteLine($"Error at option: {parts[0]} = {parts[1]}");
+                        return false;
+                    }
+                }
+                else if (parts[0] == "base" && baseLibrary == "")
+                {
+                    if (ModuleToggle.ContainsKey(parts[1]))
+                        baseLibrary = parts[1];
+
+                    else
+                    {
+                        Console.WriteLine($"Unknown base module: {parts[1]} .base should be one of the submitted module");
+                        return false;
+                    }
+                }
+                else if (parts[0] == "base" && baseLibrary != "")
+                {
+                    Console.WriteLine($"More than 1 base module . Please remove base={parts[1]}");
+                    return false;
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Invalid argument: {arg}");
+                return false;
+            }
+        }
+        bool result = false;
+        foreach (var state in ModuleToggle.Values)
+            result |= state;
+        if(!result)
+            Console.WriteLine("Must enable at least 1 module!");
+        return result;
+    }
+
+    private static string SetSourceName()
+    {
+        string name = "SDL3.";
+        foreach (var kvp in ModuleToggle)
+        {
+            var moduleName = kvp.Key.Substring(4);
+            if (kvp.Value)
+                name += moduleName + ".";
+        }
+        name += "cs";
+        return name;
+    }
+
+    private static async Task<int> Main(string[] args)
     {
         // PARSE INPUT
         if (args.Length < 1)
         {
-            Console.WriteLine("usage: GenerateBindings <sdl-repo-root-dir> [--core]");
-            Console.WriteLine("sdl-repo-root-dir: The root directory of SDL3 code.");
-            Console.WriteLine("--core: Bindgen for .NET Core. If this is not set, will bindgen for .NET Framework.");
+            Console.WriteLine("usage:               GenerateBindings 0<sdl-repo-root-dir> 1<ffi-json> 2[module]");
+            Console.WriteLine("sdl-repo-root-dir:   The root directory of SDL3 code.");
+            Console.WriteLine(@"module:             SDL_image= , SDL_mixer=true, SDL_ttf=false, SDL_core=false 
+                                                    will generate both image and mixer modules of SDL
+                                                    (skip the ttf and core)");
             return 1;
         }
 
-        CoreMode = CheckCoreMode(args);
+        if (!args[1].EndsWith(".json"))
+        {
+            Console.WriteLine("ffi json not submit");
+            return 2;
+        } 
+        var ffiJsonFile = new FileInfo(Path.Combine(AppContext.BaseDirectory, args[1]));
 
-        var sdlProjectName = CoreMode ? "SDL3.Core.csproj" : "SDL3.Legacy.csproj";
+        if (!CheckModules(args))
+        {
+            Console.WriteLine("Unable to verify submitted modules.Please check again!");
+            return 3;
+        }
+
+        Debug = args.Contains("debug");
+        var sdlProjectName = "SDL3-skapunch.csproj";
 
         var sdlDir = GetSDL3Directory(args);
-        var sdlBindingsDir = new FileInfo(Path.Combine(AppContext.BaseDirectory, "../../../../SDL3/"));
+
+        var sdlBindingsDir = new FileInfo(Path.Combine(AppContext.BaseDirectory, "../../../../SDL3-skapunch/"));
         var sdlBindingsProjectFile = new FileInfo(Path.Combine(sdlBindingsDir.FullName, sdlProjectName));
-        var ffiJsonFile = new FileInfo(Path.Combine(AppContext.BaseDirectory, "ffi.json"));
+
 
 #if WINDOWS
         var dotnetExe = FindInPath("dotnet.exe");
@@ -137,20 +225,90 @@ internal static partial class Program
             Console.WriteLine($"failed to read ffi.json file {ffiJsonFile.FullName}!!");
             return 1;
         }
-
+        greenLitModules = false;
+        //construct the module's types
+        foreach (var module in ModuleToggle.Keys)
+        {
+            ModuleReleventTypes[module] = new HashSet<string>();
+        }
         foreach (var entry in ffiData)
         {
-            if ((entry.Header == null) || !Path.GetFileName(entry.Header).StartsWith("SDL_"))
+            
+            if (entry.Header == null)
+                continue;
+            
+            if (!IsInLibraryHeader(entry, sdlDir, out var headerFile))
+                continue;
+            // *** HACKS ***
+            if (headerFile.StartsWith("SDL_stdinc.h") && !(entry.Name!.StartsWith("SDL_malloc") || entry.Name!.StartsWith("SDL_free")))
+                continue;
+            // *** END OF HACKS ***
+            var headerName = Path.GetFileNameWithoutExtension(headerFile);
+            
+                /*            // ** HACKS
+                               if (!ModuleToggle.ContainsKey(headerName))
+                                   continue;
+                               if (!ModuleToggle[headerName])
+                                   continue;
+                               // ** END OF HACKS */
+                //put all the relevent headers to their contextual module
+                //Assumming ffi contains all the functions and type of the whole SDL3 and its submodules
+                // ** Construct the ModuleReleventTypes's Keys based on the ModuleToggle's Key
+                if (ModuleReleventTypes.ContainsKey(headerName))
+                {
+                    ModuleReleventTypes[headerName].Add(entry.Name!);
+                }
+                else if (!ModuleReleventTypes.ContainsKey(headerName))
+                {
+                    //all the SDL_core goes here
+                    ModuleReleventTypes[baseLibrary].Add(entry.Name!);
+                }
+            /*             if (!ModuleReleventTypes.ContainsKey(headerName))
+                                    {
+                                        //key doesn't exist
+                                        ModuleReleventTypes[headerName] = new HashSet<string>();
+                                    }
+                                    else
+                                    {
+                                        ModuleReleventTypes[headerName].Add(entry.Name);
+                                    } */
+        }
+        greenLitModules = true;
+        //LESSON LEARNED : POPULATE THE TYPEDEF MAP !!AFTER!! THE MODULE CONSTRUCT
+        //Populate the typedef map using the ffi json
+        foreach (var entry in ffiData)
+        {
+            //skip all the files that is not start with SDL_
+            if ((entry.Header == null) || !IsInLibraryHeader(entry, sdlDir, out _))
             {
                 continue;
             }
 
-            if ((entry.Tag == "typedef") && entry.Name!.StartsWith("SDL_"))
+            if ((entry.Tag == "typedef") && IsInLibraryHeader(entry, sdlDir, out _))
             {
+                // Add or update typedef mapping
                 TypedefMap[entry.Name!] = entry.Type!;
             }
         }
-
+        //end of populate the typedef map
+        if (Debug)
+        {
+            //await Serialize();
+            foreach (var kvp in ModuleReleventTypes)
+            {
+                Console.WriteLine($"==== Start of {kvp.Key} ========");
+                foreach (var value in kvp.Value)
+                    Console.WriteLine($"{value}");
+                Console.WriteLine($"==== End of {kvp.Key} ========");
+                Console.Write("\n");
+            }
+            Console.WriteLine($"**** Typedef map ********");
+            foreach (var key in TypedefMap.Keys)
+            {
+                Console.WriteLine($"{key}");
+            }
+            return 4;
+        }
         var definitions = new StringBuilder();
         var unknownPointerFunctionData = new StringBuilder();
         var unknownReturnedCharPtrMemoryOwners = new StringBuilder();
@@ -164,14 +322,47 @@ internal static partial class Program
 
         foreach (var entry in ffiData)
         {
-            if ((entry.Header == null) || !Path.GetFileName(entry.Header).StartsWith("SDL_"))
+            string headerFile;
+            //skip all the files that is not start with SDL_
+            if ((entry.Header == null) || !IsInLibraryHeader(entry, sdlDir, out headerFile))
             {
                 continue;
             }
+            // *** HACKS ***
+            if (headerFile.StartsWith("SDL_stdinc.h") && !(entry.Name!.StartsWith("SDL_malloc") || entry.Name!.StartsWith("SDL_free")))
+                continue;
+            // *** END OF HACKS ***
+            string? keyFound = null;
+            foreach (var kvp in ModuleReleventTypes)
+            {
+                var entryName = kvp.Value.FirstOrDefault(v => v == entry.Name);
+                if (entryName != null)
+                {
+                    //found
+                    keyFound = kvp.Key; //Get the key at which this sub-value of the value belongs to
+                    break;
+                }
+            }
+            if (keyFound != null)
+            {
+                if (!ModuleToggle[keyFound])
+                {
+                    //module is red-lit
+                    continue; //skip to the next entry
+                }
+            }
+            else
+            {
+                //not found
+                Console.WriteLine($"Inconceivable!! {entry.Name} doesn't belong to any modules");
+                return 5;
+            }
 
             if (Path.GetFileName(entry.Header).StartsWith("SDL_stdinc.h") &&
-                !((entry.Name == "SDL_malloc") || (entry.Name == "SDL_free")))
+                            !((entry.Name == "SDL_malloc") || (entry.Name == "SDL_free")))
             {
+                //in SDL_stdinc.h if it is not SDL_malloc nor SDL_free , skip it!
+                //we only need SDL_malloc and SDL_free
                 continue;
             }
 
@@ -195,11 +386,10 @@ internal static partial class Program
             {
                 continue;
             }
-
-            var headerFile = entry.Header.Split(":")[0];
+            var headerPath = entry.Header.Split(":")[0];
             if (currentSourceFile != headerFile)
             {
-                definitions.Append($"// {headerFile}\n\n");
+                definitions.Append($"// {headerPath}\n\n");
                 currentSourceFile = headerFile;
 
                 hintsDefinitions.Clear();
@@ -208,8 +398,9 @@ internal static partial class Program
 
                 var isHintsHeader = currentSourceFile.EndsWith("SDL_hints.h");
 
-                string headerName = currentSourceFile.Substring(currentSourceFile.LastIndexOf('/') + 1);
-                IEnumerable<string> fileLines = File.ReadLines(Path.Combine(sdlDir.FullName, $"include/SDL3/{headerName}"));
+
+
+                IEnumerable<string> fileLines = File.ReadLines(headerPath);
                 foreach (var line in fileLines)
                 {
                     if (isHintsHeader)
@@ -256,14 +447,15 @@ internal static partial class Program
                 }
             }
 
+            // IF SAME HEADER 
             if (entry.Tag == "enum")
             {
                 definitions.Append($"public enum {entry.Name!}\n{{\n");
-                DefinedTypes.Add(entry.Name!);
+                //DefinedTypes.Add(entry.Name!);
 
                 foreach (var enumValue in entry.Fields!)
                 {
-                    definitions.Append($"{enumValue.Name} = {(int) enumValue.Value!},\n");
+                    definitions.Append($"{enumValue.Name} = {(int)enumValue.Value!},\n");
                 }
 
                 definitions.Append("}\n\n");
@@ -284,7 +476,7 @@ internal static partial class Program
                         else
                         {
                             definitions.Append("[UnmanagedFunctionPointer(CallingConvention.Cdecl)]\n");
-                            DefinedTypes.Add(entry.Name!);
+                            //DefinedTypes.Add(entry.Name!);
                         }
 
                         definitions.Append($"public delegate {delegateDefinition.ReturnType} {entry.Name}(");
@@ -335,6 +527,24 @@ internal static partial class Program
 
                     definitions.Append("}\n\n");
                 }
+                //my code
+                else if (entry.Name == "SDL_BlendMode")
+                {
+                    var enumType = CSharpTypeFromFFI(type: entry.Type!, TypeContext.StructField);
+                    definitions.Append($"public enum {entry.Name} : {enumType}\n{{\n");
+                    IEnumerable<string> blendmodeFileLines = File.ReadLines(Path.Combine(sdlDir.FullName, "include/SDL3/SDL_blendmode.h"));
+                    foreach (var line in blendmodeFileLines)
+                    {
+                        var match = BlendmodeDefinitionRegex().Match(line);
+                        if (match.Success)
+                        {
+                            definitions.Append($"{match.Groups["blendmode"].Value} = {match.Groups["value"].Value},\n");
+                        }
+                    }
+                    definitions.Append("}\n\n");
+                }
+
+                //end of my code
                 else if (entry.Name != null && IsFlagType(entry.Name))
                 {
                     definitions.Append("[Flags]\n");
@@ -382,7 +592,7 @@ internal static partial class Program
                     continue;
                 }
 
-                DefinedTypes.Add(entry.Name!);
+                //DefinedTypes.Add(entry.Name!);
                 ConstructStruct(structName: entry.Name!, entry, definitions);
 
                 while (StructDefinition.InternalStructs.Count > 0)
@@ -434,18 +644,7 @@ internal static partial class Program
                     var componentType = isReturn ? component : component.Type!;
                     string typeName;
 
-                    if (!CoreMode && isReturn)
-                    {
-                        var returnTypedef = GetTypeFromTypedefMap(type: componentType);
-                        typeName = CSharpTypeFromFFI(returnTypedef, TypeContext.FunctionData);
-                        if (typeName == "UTF8_STRING")
-                        {
-                            FunctionSignature.ReturnIntent = FunctionSignatureType.ReturnIntentType.String;
-                        }
-
-                        UnusedUserProvidedTypes.Remove(entry.Name!); // assume the core bindings have some use for this definition
-                    }
-                    else if ((componentType.Tag == "pointer") && IsDefinedType(componentType.Type?.Tag))
+                    if ((componentType.Tag == "pointer") && IsDefinedType(componentType.Type!))
                     {
                         var subtype = GetTypeFromTypedefMap(type: componentType.Type!);
                         var subtypeName = CSharpTypeFromFFI(subtype, TypeContext.FunctionData);
@@ -498,24 +697,23 @@ internal static partial class Program
                                         typeName = $"ref {subtypeName}";
                                         break;
                                     case UserProvidedData.PointerFunctionDataIntent.In:
-                                        typeName = CoreMode ? $"in {subtypeName}" : $"ref {subtypeName}";
+                                        typeName = $"in {subtypeName}";
                                         break;
                                     case UserProvidedData.PointerFunctionDataIntent.Out:
                                         typeName = $"out {subtypeName}";
                                         break;
                                     case UserProvidedData.PointerFunctionDataIntent.Array:
-                                        if (CoreMode) {
-                                            if (isReturn) {
-                                                typeName = "IntPtr";
-                                            } else {
-                                                typeName = $"Span<{subtypeName}>";
-                                            }
-                                        } else {
-                                            typeName = $"{subtypeName}[]";
+                                        if (isReturn)
+                                        {
+                                            typeName = "IntPtr";
+                                        }
+                                        else
+                                        {
+                                            typeName = $"Span<{subtypeName}>";
                                         }
                                         break;
                                     case UserProvidedData.PointerFunctionDataIntent.OutArray:
-                                        typeName = CoreMode ? $"Span<{subtypeName}>" : $"[Out] {subtypeName}[]";
+                                        typeName = $"Span<{subtypeName}>";
                                         break;
                                     case UserProvidedData.PointerFunctionDataIntent.Pointer:
                                         typeName = $"{subtypeName}*";
@@ -561,6 +759,7 @@ internal static partial class Program
 
                     if (isReturn)
                     {
+                        //is the return type of the function signature
                         FunctionSignature.ReturnType = typeName;
                         if (FunctionSignature.ReturnType == "FUNCTION_POINTER")
                         {
@@ -569,6 +768,7 @@ internal static partial class Program
                     }
                     else
                     {
+                        //add to parameters list of the function signature
                         FunctionSignature.ParameterTypesNames.Add((typeName, SanitizeName(componentName)));
                     }
                 }
@@ -589,241 +789,130 @@ internal static partial class Program
                     FunctionSignature.ParameterString.Append($"{type} {outputName}");
                 }
 
-                if (!CoreMode && FunctionSignature.RequiresStringMarshalling)
+
+
+                // Handle array -> span marshalling by generating a helper function
+                if (FunctionSignature.ReturnIntent == FunctionSignatureType.ReturnIntentType.Array)
                 {
-                    definitions.Append(
-                        $"[DllImport(nativeLibName, EntryPoint = \"{FunctionSignature.Name}\", CallingConvention = CallingConvention.Cdecl)]\n"
-                    );
-                    definitions.Append(
-                        $"private static extern {FunctionSignature.ReturnType.Replace("UTF8_STRING", "IntPtr")} INTERNAL_{FunctionSignature.Name}("
-                    );
-
-                    definitions.Append(FunctionSignature.ParameterString.ToString().Replace("UTF8_STRING", "byte*"));
-                    definitions.Append(");");
-
-                    if (containsUnknownRef)
+                    if (UserProvidedData.ReturnedArrayCountParamNames.TryGetValue(FunctionSignature.Name, value: out var countParamName))
                     {
-                        definitions.Append(" // WARN_UNKNOWN_POINTER_PARAMETER");
-                    }
+                        UnusedUserProvidedTypes.Remove(FunctionSignature.Name);
 
-                    definitions.Append('\n');
-
-                    definitions.Append($"public static {FunctionSignature.ReturnType.Replace("UTF8_STRING", "string")} {FunctionSignature.Name}(");
-                    definitions.Append(FunctionSignature.ParameterString.ToString().Replace("UTF8_STRING", "string"));
-                    definitions.Append(")\n{\n");
-
-                    foreach (var stringParam in FunctionSignature.HeapAllocatedStringParams)
-                    {
-                        definitions.Append($"var {stringParam}UTF8 = EncodeAsUTF8({stringParam});\n");
-                    }
-
-                    if (FunctionSignature.HeapAllocatedStringParams.Count == 0)
-                    {
-                        definitions.Append("return ");
-                    }
-                    else if (FunctionSignature.ReturnType != "void")
-                    {
-                        definitions.Append("var result = ");
-                    }
-
-                    if (FunctionSignature.ReturnIntent == FunctionSignatureType.ReturnIntentType.String)
-                    {
-                        definitions.Append("DecodeFromUTF8(");
-                    }
-
-                    definitions.Append($"INTERNAL_{FunctionSignature.Name}(");
-                    var isInitialParameter = true;
-                    foreach (var (typeName, name) in FunctionSignature.ParameterTypesNames)
-                    {
-                        if (!isInitialParameter)
+                        var stringList = new List<string>();
+                        foreach (var (typeName, name) in FunctionSignature.ParameterTypesNames)
                         {
-                            definitions.Append(", ");
-                        }
-
-                        isInitialParameter = false;
-
-                        if (typeName.StartsWith("ref"))
-                        {
-                            definitions.Append("ref ");
-                        }
-                        else if (typeName.StartsWith("out"))
-                        {
-                            definitions.Append("out ");
-                        }
-
-                        if (FunctionSignature.HeapAllocatedStringParams.Contains(name))
-                        {
-                            definitions.Append($"{name}UTF8");
-                        }
-                        else
-                        {
-                            definitions.Append(name);
-                        }
-                    }
-
-                    var unknownMemoryOwner = false;
-                    if (FunctionSignature.ReturnIntent == FunctionSignatureType.ReturnIntentType.String)
-                    {
-                        definitions.Append(')');
-
-                        if (UserProvidedData.ReturnedCharPtrMemoryOwners.TryGetValue(FunctionSignature.Name, value: out var memoryOwner))
-                        {
-                            UnusedUserProvidedTypes.Remove(FunctionSignature.Name);
-                            unknownMemoryOwner = memoryOwner == UserProvidedData.ReturnedCharPtrMemoryOwner.Unknown;
-
-                            if (memoryOwner == UserProvidedData.ReturnedCharPtrMemoryOwner.Caller)
+                            if (countParamName != name)
                             {
-                                definitions.Append(", shouldFree: true");
+                                stringList.Add($"{typeName} {name}");
                             }
                         }
-                        else
+                        var signatureArgs = $"({string.Join(", ", stringList)})";
+
+                        stringList.Clear();
+                        foreach (var (typeName, name) in FunctionSignature.ParameterTypesNames)
                         {
-                            unknownMemoryOwner = true;
-                            unknownReturnedCharPtrMemoryOwners.Append(
-                                $"{{ \"{FunctionSignature.Name!}\", ReturnedCharPtrMemoryOwner.Unknown }}, // {entry.Header}\n"
-                            );
-                        }
-                    }
-
-                    definitions.Append(");");
-
-                    if (unknownMemoryOwner)
-                    {
-                        definitions.Append(" // WARN_UNKNOWN_RETURNED_CHAR_PTR_MEMORY_OWNER");
-                    }
-
-                    definitions.Append('\n');
-
-                    if (FunctionSignature.HeapAllocatedStringParams.Count > 0)
-                    {
-                        definitions.Append('\n');
-                        foreach (var stringParam in FunctionSignature.HeapAllocatedStringParams)
-                        {
-                            definitions.Append($"SDL_free((IntPtr){stringParam}UTF8);\n");
-                        }
-
-                        if (FunctionSignature.ReturnType != "void")
-                        {
-                            definitions.Append("return result;\n");
-                        }
-                    }
-
-                    definitions.Append("}\n\n");
-                }
-                else
-                {
-                    if (CoreMode)
-                    {
-                        // Handle array -> span marshalling by generating a helper function
-                        if (FunctionSignature.ReturnIntent == FunctionSignatureType.ReturnIntentType.Array)
-                        {
-                            if (UserProvidedData.ReturnedArrayCountParamNames.TryGetValue(FunctionSignature.Name, value: out var countParamName))
+                            if (countParamName != name)
                             {
-                                UnusedUserProvidedTypes.Remove(FunctionSignature.Name);
-
-                                var stringList = new List<string>();
-                                foreach (var (typeName, name) in FunctionSignature.ParameterTypesNames)
-                                {
-                                    if (countParamName != name) {
-                                        stringList.Add($"{typeName} {name}");
-                                    }
-                                }
-                                var signatureArgs = $"({string.Join(", ", stringList)})";
-
-                                stringList.Clear();
-                                foreach (var (typeName, name) in FunctionSignature.ParameterTypesNames)
-                                {
-                                    if (countParamName != name) {
-                                        stringList.Add($"{name}");
-                                    } else {
-                                        stringList.Add($"out var {name}");
-                                    }
-                                }
-                                var arguments = $"({string.Join(", ", stringList)})";
-
-                                stringList.Clear();
-                                foreach (var (typeName, name) in FunctionSignature.ParameterTypesNames)
-                                {
-                                    if (countParamName != name) {
-                                        stringList.Add($"{name}");
-                                    }
-                                }
-                                var argumentsWithoutCount = string.Join(", ", stringList);
-
-                                var componentType = entry.ReturnType!;
-                                var subtype = GetTypeFromTypedefMap(type: componentType.Type!);
-                                var subtypeName = CSharpTypeFromFFI(subtype, TypeContext.FunctionData);
-
-                                definitions.Append($"public static Span<{subtypeName}> {FunctionSignature.Name}{signatureArgs}\n");
-                                definitions.Append("{\n");
-                                definitions.Append($"var result = {FunctionSignature.Name}{arguments};\n");
-                                definitions.Append($"return new Span<{subtypeName}>((void*) result, {countParamName});\n");
-                                definitions.Append("}\n\n");
+                                stringList.Add($"{name}");
                             }
                             else
                             {
-                                unknownReturnedArrayCountParamNames.Append(
-                                    $"{{ \"{FunctionSignature.Name!}\", \"WARN_MISSING_COUNT_PARAM_NAME\" }}, // {entry.Header}\n"
-                                );
+                                stringList.Add($"out var {name}");
                             }
                         }
+                        var arguments = $"({string.Join(", ", stringList)})";
 
-                        if (FunctionSignature.RequiresStringMarshalling)
+                        stringList.Clear();
+                        foreach (var (typeName, name) in FunctionSignature.ParameterTypesNames)
                         {
-                            definitions.Append("[LibraryImport(nativeLibName, StringMarshalling = StringMarshalling.Utf8)]");
-                        }
-                        else
-                        {
-                            definitions.Append("[LibraryImport(nativeLibName)]\n");
-                        }
-
-                        definitions.Append($"[UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]\n");
-
-                        // Handle string marshalling
-                        if (FunctionSignature.ReturnIntent == FunctionSignatureType.ReturnIntentType.String)
-                        {
-                            if (UserProvidedData.ReturnedCharPtrMemoryOwners.TryGetValue(FunctionSignature.Name, value: out var memoryOwner))
+                            if (countParamName != name)
                             {
-                                UnusedUserProvidedTypes.Remove(FunctionSignature.Name);
-                                if (memoryOwner == UserProvidedData.ReturnedCharPtrMemoryOwner.Caller)
-                                {
-                                    definitions.Append("[return: MarshalUsing(typeof(CallerOwnedStringMarshaller))]\n");
-                                }
-                                else
-                                {
-                                    definitions.Append("[return: MarshalUsing(typeof(SDLOwnedStringMarshaller))]\n");
-                                }
-                            }
-                            else
-                            {
-                                unknownReturnedCharPtrMemoryOwners.Append(
-                                    $"{{ \"{FunctionSignature.Name!}\", ReturnedCharPtrMemoryOwner.Unknown }}, // {entry.Header}\n"
-                                );
+                                stringList.Add($"{name}");
                             }
                         }
+                        var argumentsWithoutCount = string.Join(", ", stringList);
 
-                        definitions.Append($"public static partial {FunctionSignature.ReturnType.Replace("UTF8_STRING", "string")} {entry.Name}(");
+                        var componentType = entry.ReturnType!;
+                        var subtype = GetTypeFromTypedefMap(type: componentType.Type!);
+                        var subtypeName = CSharpTypeFromFFI(subtype, TypeContext.FunctionData);
+
+                        definitions.Append($"public static Span<{subtypeName}> {FunctionSignature.Name}{signatureArgs}\n");
+                        definitions.Append("{\n");
+                        definitions.Append($"var result = {FunctionSignature.Name}{arguments};\n");
+                        definitions.Append($"return new Span<{subtypeName}>((void*) result, {countParamName});\n");
+                        definitions.Append("}\n\n");
                     }
                     else
                     {
-                        definitions.Append("[DllImport(nativeLibName, CallingConvention = CallingConvention.Cdecl)]\n");
-                        definitions.Append($"public static extern {FunctionSignature.ReturnType} {entry.Name!}(");
+                        unknownReturnedArrayCountParamNames.Append(
+                            $"{{ \"{FunctionSignature.Name!}\", \"WARN_MISSING_COUNT_PARAM_NAME\" }}, // {entry.Header}\n"
+                        );
                     }
-
-                    definitions.Append(FunctionSignature.ParameterString.ToString().Replace("UTF8_STRING", "string"));
-
-                    definitions.Append("); ");
-                    if (containsUnknownRef)
-                    {
-                        definitions.Append("// WARN_UNKNOWN_POINTER_PARAMETER");
-                    }
-
-                    definitions.Append("\n\n");
                 }
+
+                // ** HACKS 
+                var prefix = entry.Name!.Substring(0, 4).ToUpperInvariant();
+                string nativeLibName;
+
+                if (prefix == "IMG_")
+                    nativeLibName = "\"SDL3_image\"";
+                else if (prefix == "TTF_")
+                    nativeLibName = "\"SDL3_ttf\"";
+                else if (prefix == "MIX_")
+                    nativeLibName = "\"SDL3_mixer\"";
+                else
+                    nativeLibName = "\"SDL3\"";
+                // ** END OF HACKS
+                if (FunctionSignature.RequiresStringMarshalling)
+                {
+                    definitions.Append("[LibraryImport(" + nativeLibName + ", StringMarshalling = StringMarshalling.Utf8)]");
+                }
+                else
+                {
+                    definitions.Append("[LibraryImport(" + nativeLibName + ")]\n");
+                }
+
+                definitions.Append($"[UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]\n");
+
+                // Handle string marshalling
+                if (FunctionSignature.ReturnIntent == FunctionSignatureType.ReturnIntentType.String)
+                {
+                    if (UserProvidedData.ReturnedCharPtrMemoryOwners.TryGetValue(FunctionSignature.Name, value: out var memoryOwner))
+                    {
+                        UnusedUserProvidedTypes.Remove(FunctionSignature.Name);
+                        if (memoryOwner == UserProvidedData.ReturnedCharPtrMemoryOwner.Caller)
+                        {
+                            definitions.Append("[return: MarshalUsing(typeof(CallerOwnedStringMarshaller))]\n");
+                        }
+                        else
+                        {
+                            definitions.Append("[return: MarshalUsing(typeof(SDLOwnedStringMarshaller))]\n");
+                        }
+                    }
+                    else
+                    {
+                        unknownReturnedCharPtrMemoryOwners.Append(
+                            $"{{ \"{FunctionSignature.Name!}\", ReturnedCharPtrMemoryOwner.Unknown }}, // {entry.Header}\n"
+                        );
+                    }
+                }
+
+                definitions.Append($"public static partial {FunctionSignature.ReturnType.Replace("UTF8_STRING", "string")} {entry.Name}(");
+
+
+                definitions.Append(FunctionSignature.ParameterString.ToString().Replace("UTF8_STRING", "string"));
+
+                definitions.Append("); ");
+                if (containsUnknownRef)
+                {
+                    definitions.Append("// WARN_UNKNOWN_POINTER_PARAMETER");
+                }
+
+                definitions.Append("\n\n");
             }
         }
 
-        var outputFilename = CoreMode ? "SDL3.Core.cs" : "SDL3.Legacy.cs";
+        var outputFilename = SetSourceName();
 
         File.WriteAllText(
             path: Path.Combine(sdlBindingsDir.FullName, outputFilename),
@@ -831,49 +920,81 @@ internal static partial class Program
         );
 
         RunProcess(dotnetExe, args: $"format {sdlBindingsProjectFile}");
+
+        //hard-code text file 
         if (unknownPointerFunctionData.Length > 0)
         {
-            Console.Write($"new pointer parameters (add these to `PointerFunctionDataIntents` in UserProvidedData.cs:\n{unknownPointerFunctionData}\n");
+            WriteUnused("unknowPointerFunctionsData.txt",$"new pointer parameters (add these to `PointerFunctionDataIntents` in UserProvidedData.cs:\n{unknownPointerFunctionData}\n");
         }
 
         if (unknownReturnedCharPtrMemoryOwners.Length > 0)
         {
-            Console.Write(
+            WriteUnused("unknowReturnedCharPtrMemoryOwners.txt",
                 $"new returned char pointers (add these to `ReturnedCharPtrMemoryOwners` in UserProvidedData.cs:\n{unknownReturnedCharPtrMemoryOwners}\n"
             );
         }
 
         if (unknownReturnedArrayCountParamNames.Length > 0)
         {
-            Console.Write(
+            WriteUnused("unknowReturnedArrayCountParamNames.txt",
                 $"new returned arrays (add these to `ReturnedArrayCountParamNames` in UserProvidedData.cs and specify the name of the param that contains the element count:\n{unknownReturnedArrayCountParamNames}\n"
             );
         }
 
         if (undefinedFunctionPointers.Length > 0)
         {
-            Console.Write(
+            WriteUnused("undefinedFunctionPointers.txt",
                 $"new undefined function pointers (add these to `DelegateDefinitions` in UserProvidedData.cs:\n{undefinedFunctionPointers}\n"
             );
         }
 
         if (unpopulatedFlagDefinitions.Length > 0)
         {
-            Console.Write($"new unpopulated flag enums (add these to `FlagEnumDefinitions` in UserProvidedData.cs:\n{unpopulatedFlagDefinitions}\n");
-        }
-
-        if (UnusedUserProvidedTypes.Count > 0)
-        {
-            Console.Write("unused definitions in UserProvidedData.cs:\n");
-            foreach (var definition in UnusedUserProvidedTypes)
-            {
-                Console.Write($"{definition}\n");
-            }
+            WriteUnused("unpopulatedFlagDefinitions.txt",$"new unpopulated flag enums (add these to `FlagEnumDefinitions` in UserProvidedData.cs:\n{unpopulatedFlagDefinitions}\n");
         }
 
         return 0;
     }
 
+    //I have made an assumption that before entering this function
+    //  we've already rule out that anything that is Std-related 
+    //  had been filter out.Namely anything that isn't in a header file
+    //  that started with 'SDL_'
+    private static bool IsTypeRelevent(RawFFIEntry entry)
+    {
+        bool result = false;
+        if (greenLitModules)
+        {
+            foreach (var moduleTypes in ModuleReleventTypes.Values)
+            {
+                result = moduleTypes.Contains(entry.Tag!);
+                if (result)
+                    break;
+            }
+            return result;
+        }
+        else
+        {
+            Console.WriteLine("Modules didn't get green-lit!!");
+            return false;
+        }
+    }
+
+    private static bool IsInLibraryHeader(RawFFIEntry entry, DirectoryInfo dir, out string headerFile)
+    {
+        headerFile = Path.GetFileName(entry.Header!.Split(":")[0]);
+        var rootFolder = Path.GetFullPath(dir.FullName);
+        return Directory
+            .EnumerateFiles(rootFolder, headerFile, SearchOption.AllDirectories)
+            .Any();
+    }
+    private static void WriteUnused(string fileName, string? content)
+    {
+        using (StreamWriter writer = File.CreateText(fileName))
+        {
+            writer.Write(content!);
+        }
+    }
     private static FileInfo FindInPath(string exeName)
     {
         var envPath = Environment.GetEnvironmentVariable("PATH");
@@ -916,9 +1037,8 @@ internal static partial class Program
     private static string CompileBindingsCSharp(string definitions)
     {
         string output;
-        if (CoreMode)
-        {
-            output = @"// NOTE: This file is auto-generated.
+
+        output = @"// NOTE: This file is auto-generated.
 using System;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Marshalling;
@@ -928,201 +1048,151 @@ using System.Text;
 namespace SDL3;
 
 public static unsafe partial class SDL
+{";
+        if (ModuleToggle[baseLibrary])
+        {
+            output += @"
+// Custom marshaller for SDL-owned strings returned by SDL.
+[CustomMarshaller(typeof(string), MarshalMode.ManagedToUnmanagedOut, typeof(SDLOwnedStringMarshaller))]
+public static unsafe class SDLOwnedStringMarshaller
 {
-    // Custom marshaller for SDL-owned strings returned by SDL.
-    [CustomMarshaller(typeof(string), MarshalMode.ManagedToUnmanagedOut, typeof(SDLOwnedStringMarshaller))]
-    public static unsafe class SDLOwnedStringMarshaller
+    /// <summary>
+    /// Converts an unmanaged string to a managed version.
+    /// </summary>
+    /// <returns>A managed string.</returns>
+    public static string ConvertToManaged(byte* unmanaged)
+        => Marshal.PtrToStringUTF8((IntPtr)unmanaged);
+}
+
+// Custom marshaller for caller-owned strings returned by SDL.
+[CustomMarshaller(typeof(string), MarshalMode.ManagedToUnmanagedOut, typeof(CallerOwnedStringMarshaller))]
+public static unsafe class CallerOwnedStringMarshaller
+{
+    /// <summary>
+    /// Converts an unmanaged string to a managed version.
+    /// </summary>
+    /// <returns>A managed string.</returns>
+    public static string ConvertToManaged(byte* unmanaged)
+        => Marshal.PtrToStringUTF8((IntPtr)unmanaged);
+
+    /// <summary>
+    /// Free the memory for a specified unmanaged string.
+    /// </summary>
+    public static void Free(byte* unmanaged)
+        => SDL_free((IntPtr)unmanaged);
+}
+
+// Taken from https://github.com/ppy/SDL3-CS
+// C# bools are not blittable, so we need this workaround
+public readonly record struct SDLBool
+{
+    private readonly byte value;
+
+    internal const byte FALSE_VALUE = 0;
+    internal const byte TRUE_VALUE = 1;
+
+    internal SDLBool(byte value)
     {
-        /// <summary>
-        /// Converts an unmanaged string to a managed version.
-        /// </summary>
-        /// <returns>A managed string.</returns>
-        public static string ConvertToManaged(byte* unmanaged)
-            => Marshal.PtrToStringUTF8((IntPtr)unmanaged);
+        this.value = value;
     }
 
-    // Custom marshaller for caller-owned strings returned by SDL.
-    [CustomMarshaller(typeof(string), MarshalMode.ManagedToUnmanagedOut, typeof(CallerOwnedStringMarshaller))]
-    public static unsafe class CallerOwnedStringMarshaller
+    public static implicit operator bool(SDLBool b)
     {
-        /// <summary>
-        /// Converts an unmanaged string to a managed version.
-        /// </summary>
-        /// <returns>A managed string.</returns>
-        public static string ConvertToManaged(byte* unmanaged)
-            => Marshal.PtrToStringUTF8((IntPtr)unmanaged);
-
-        /// <summary>
-        /// Free the memory for a specified unmanaged string.
-        /// </summary>
-        public static void Free(byte* unmanaged)
-            => SDL_free((IntPtr)unmanaged);
+        return b.value != FALSE_VALUE;
     }
 
-    // Taken from https://github.com/ppy/SDL3-CS
-    // C# bools are not blittable, so we need this workaround
-    public readonly record struct SDLBool
+    public static implicit operator SDLBool(bool b)
     {
-        private readonly byte value;
-
-        internal const byte FALSE_VALUE = 0;
-        internal const byte TRUE_VALUE = 1;
-
-        internal SDLBool(byte value)
-        {
-            this.value = value;
-        }
-
-        public static implicit operator bool(SDLBool b)
-        {
-            return b.value != FALSE_VALUE;
-        }
-
-        public static implicit operator SDLBool(bool b)
-        {
-            return new SDLBool(b ? TRUE_VALUE : FALSE_VALUE);
-        }
-
-        public bool Equals(SDLBool other)
-        {
-            return other.value == value;
-        }
-
-        public override int GetHashCode()
-        {
-            return value.GetHashCode();
-        }
+        return new SDLBool(b ? TRUE_VALUE : FALSE_VALUE);
     }
+
+    public bool Equals(SDLBool other)
+    {
+        return other.value == value;
+    }
+
+    public override int GetHashCode()
+    {
+        return value.GetHashCode();
+    }
+}
 ";
         }
-        else
-        {
-            output = @"// NOTE: This file is auto-generated.
-using System;
-using System.Runtime.InteropServices;
-using System.Text;
-
-namespace SDL3
-{
-
-public static unsafe class SDL
-{
-    private static byte* EncodeAsUTF8(string str)
-    {
-        if (str == null)
-        {
-            return (byte*) 0;
-        }
-
-        var size = (str.Length * 4) + 1;
-        var buffer = (byte*) SDL_malloc((UIntPtr) size);
-        fixed (char* strPtr = str)
-        {
-            Encoding.UTF8.GetBytes(strPtr, str.Length + 1, buffer, size);
-        }
-
-        return buffer;
-    }
-
-    private static string DecodeFromUTF8(IntPtr ptr, bool shouldFree = false)
-    {
-        if (ptr == IntPtr.Zero)
-        {
-            return null;
-        }
-
-        var end = (byte*) ptr;
-        while (*end != 0)
-        {
-            end++;
-        }
-
-        var result = new string(
-            (sbyte*) ptr,
-            0,
-            (int) (end - (byte*)ptr),
-            System.Text.Encoding.UTF8
-        );
-
-        if (shouldFree)
-        {
-            SDL_free(ptr);
-        }
-
-        return result;
-    }
-
-    // Taken from https://github.com/ppy/SDL3-CS
-    // C# bools are not blittable, so we need this workaround
-    public struct SDLBool
-    {
-        private readonly byte value;
-
-        internal const byte FALSE_VALUE = 0;
-        internal const byte TRUE_VALUE = 1;
-
-        internal SDLBool(byte value)
-        {
-            this.value = value;
-        }
-
-        public static implicit operator bool(SDLBool b)
-        {
-            return b.value != FALSE_VALUE;
-        }
-
-        public static implicit operator SDLBool(bool b)
-        {
-            return new SDLBool(b ? TRUE_VALUE : FALSE_VALUE);
-        }
-
-        public bool Equals(SDLBool other)
-        {
-            return other.value == value;
-        }
-
-        public override bool Equals(object rhs)
-        {
-            if (rhs is bool)
-            {
-                return Equals((SDLBool)(bool)rhs);
-            }
-            else if (rhs is SDLBool)
-            {
-                return Equals((SDLBool)rhs);
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public override int GetHashCode()
-        {
-            return value.GetHashCode();
-        }
-    }
-";
-        }
-
+    
         output += $@"
-    private const string nativeLibName = ""SDL3"";
 
     {definitions}
 }}
 ";
-
-        if (!CoreMode)
-        {
-            output += "}";
-        }
-
         return output;
     }
 
+    public class TupleKeyDictionaryConverter<TValue>
+        : JsonConverter<Dictionary<(string, string), TValue>>
+    {
+        public override Dictionary<(string, string), TValue> Read(
+            ref Utf8JsonReader reader,
+            Type typeToConvert,
+            JsonSerializerOptions options)
+        {
+            var dict = new Dictionary<(string, string), TValue>();
+
+            if (reader.TokenType != JsonTokenType.StartObject)
+                throw new JsonException();
+
+            reader.Read();
+
+            while (reader.TokenType == JsonTokenType.PropertyName)
+            {
+                var keyString = reader.GetString()!;
+                var parts = keyString.Split(':', 2);
+                var key = (parts[0], parts.Length > 1 ? parts[1] : "");
+
+                reader.Read();
+                var value = JsonSerializer.Deserialize<TValue>(ref reader, options)!;
+
+                dict[key] = value;
+
+                reader.Read();
+            }
+
+            return dict;
+        }
+
+        public override void Write(
+            Utf8JsonWriter writer,
+            Dictionary<(string, string), TValue> value,
+            JsonSerializerOptions options)
+        {
+            writer.WriteStartObject();
+
+            foreach (var kvp in value)
+            {
+                writer.WritePropertyName($"{kvp.Key.Item1}:{kvp.Key.Item2}");
+                JsonSerializer.Serialize(writer, kvp.Value, options);
+            }
+
+            writer.WriteEndObject();
+        }
+    }
+    private static async Task Serialize()
+    {
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
+
+        // Register both converters
+        options.Converters.Add(new JsonStringEnumConverter());
+        options.Converters.Add(new TupleKeyDictionaryConverter<UserProvidedData.PointerFunctionDataIntent>());
+
+        await using var stream = File.Create("PointerFunctionDataIntents.json");
+        await JsonSerializer.SerializeAsync(stream, UserProvidedData.PointerFunctionDataIntents, options);
+
+    }
     private static RawFFIEntry GetTypeFromTypedefMap(RawFFIEntry type)
     {
-        if (type.Tag.StartsWith("SDL_"))
+        if (IsTypeRelevent(type))
         {
             // preserve flag types
             if (IsFlagType(type.Tag))
@@ -1141,7 +1211,7 @@ public static unsafe class SDL
 
     private static string CSharpTypeFromFFI(RawFFIEntry type, TypeContext context)
     {
-        if ((type.Tag == "pointer") && IsDefinedType(type.Type!.Tag))
+        if ((type.Tag == "pointer") && IsDefinedType(type.Type!))
         {
             var subtype = GetTypeFromTypedefMap(type.Type!);
             var subtypeName = CSharpTypeFromFFI(subtype, context);
@@ -1157,36 +1227,37 @@ public static unsafe class SDL
                 _                       => "IntPtr",
             };
         }
-
-        return type.Tag switch
+        
+        //end of my code
+            return type.Tag switch
         {
-            "_Bool"            => "SDLBool",
-            "Sint8"            => "sbyte",
-            "Sint16"           => "short",
-            "int"              => "int",
-            "Sint32"           => "int",
-            "long"             => "long",
-            "Sint64"           => "long",
-            "Uint8"            => "byte",
-            "unsigned-short"   => "ushort",
-            "Uint16"           => "ushort",
-            "unsigned-int"     => "uint",
-            "Uint32"           => "uint",
-            "unsigned-long"    => "ulong",
-            "Uint64"           => "ulong",
-            "float"            => "float",
-            "double"           => "double",
-            "size_t"           => "UIntPtr",
-            "wchar_t"          => "char",
-            "unsigned-char"    => "byte",
-            "void"             => "void",
-            "pointer"          => "IntPtr",
+            "_Bool" => "SDLBool",
+            "Sint8" => "sbyte",
+            "Sint16" => "short",
+            "int" => "int",
+            "Sint32" => "int",
+            "long" => "long",
+            "Sint64" => "long",
+            "Uint8" => "byte",
+            "unsigned-short" => "ushort",
+            "Uint16" => "ushort",
+            "unsigned-int" => "uint",
+            "Uint32" => "uint",
+            "unsigned-long" => "ulong",
+            "Uint64" => "ulong",
+            "float" => "float",
+            "double" => "double",
+            "size_t" => "UIntPtr",
+            "wchar_t" => "char",
+            "unsigned-char" => "byte",
+            "void" => "void",
+            "pointer" => "IntPtr",
             "function-pointer" => "FUNCTION_POINTER",
-            "enum"             => type.Name!,
-            "struct"           => type.Name!,
-            "array"            => "INLINE_ARRAY",
-            "union"            => type.Name!,
-            _                  => type.Tag,
+            "enum" => type.Name!,
+            "struct" => type.Name!,
+            "array" => "INLINE_ARRAY",
+            "union" => type.Name!,
+            _ => type.Tag,
         };
     }
 
@@ -1205,15 +1276,12 @@ public static unsafe class SDL
         };
     }
 
-    private static bool IsDefinedType(string? typeName)
+    private static bool IsDefinedType(RawFFIEntry type)
     {
-        if (typeName == null) return false;
+        if (type.Tag == null) return false;
 
         return
-            (typeName != "void") && (
-                !typeName.StartsWith("SDL_") // assume no SDL prefix == std library or primitive typename
-                || DefinedTypes.Contains(typeName)
-            );
+            (type.Name != "void") || TypedefMap.ContainsKey(type.Tag);
     }
 
     private static void ConstructStruct(string structName, RawFFIEntry entry, StringBuilder definitions)
@@ -1285,6 +1353,7 @@ public static unsafe class SDL
                     )
                 );
             }
+            //fields such ass padding[i] etc.
             else if (fieldTypeName == "INLINE_ARRAY")
             {
                 var elementTypeName = CSharpTypeFromFFI(type: fieldTypedef.Type!, TypeContext.StructField);
@@ -1295,7 +1364,7 @@ public static unsafe class SDL
                     {
                         StructDefinition.OffsetFields.Add(
                             (
-                                byteOffset + (uint) (elementByteSize * i) + (uint) field.BitOffset! / 8,
+                                byteOffset + (uint)(elementByteSize * i) + (uint)field.BitOffset! / 8,
                                 $"public {elementTypeName} {fieldName}{i};"
                             )
                         );
@@ -1305,7 +1374,7 @@ public static unsafe class SDL
                 {
                     StructDefinition.OffsetFields.Add(
                         (
-                            byteOffset + (uint) field.BitOffset! / 8,
+                            byteOffset + (uint)field.BitOffset! / 8,
                             $"public fixed {elementTypeName} {fieldName}[{fieldTypedef.Size}];"
                         )
                     );
@@ -1325,7 +1394,7 @@ public static unsafe class SDL
 
                 StructDefinition.OffsetFields.Add(
                     (
-                        byteOffset + (uint) field.BitOffset! / 8,
+                        byteOffset + (uint)field.BitOffset! / 8,
                         $"public IntPtr {fieldName}; // {context}"
                     )
                 );
@@ -1334,7 +1403,7 @@ public static unsafe class SDL
             {
                 StructDefinition.OffsetFields.Add(
                     (
-                        byteOffset + (uint) field.BitOffset! / 8,
+                        byteOffset + (uint)field.BitOffset! / 8,
                         $"public {fieldTypeName} {fieldName};"
                     )
                 );
@@ -1347,11 +1416,18 @@ public static unsafe class SDL
         return name.EndsWith("Flags") || UserProvidedData.FlagTypes.Contains(name);
     }
 
+
+    private static void PopulateDefinitions()
+    {}
+
     [GeneratedRegex(@"#define\s+(?<hintName>SDL_HINT_[A-Z0-9_]+)\s+""(?<value>.+)""")]
     private static partial Regex HintDefinitionRegex();
 
     [GeneratedRegex(@"#define\s+(?<keycodeName>SDLK_[A-Z0-9_]+)\s+(?<value>0x[0-9a-f]+u)")]
     private static partial Regex KeycodeDefinitionRegex();
+
+    [GeneratedRegex(@"#define\s+(?<blendmode>SDL_BLENDMODE_[A-Z0-9_]+)\s+(?<value>0x[0-9a-f]+u)", RegexOptions.IgnoreCase)]
+    private static partial Regex BlendmodeDefinitionRegex();
 
     [GeneratedRegex(@"#define\s+(?<propName>SDL_PROP_[A-Z0-9_]+)\s+""(?<value>[^""]*)""")]
     private static partial Regex PropDefinitionRegex();

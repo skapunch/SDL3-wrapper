@@ -1,0 +1,8 @@
+new undefined function pointers (add these to `DelegateDefinitions` in UserProvidedData.cs:
+{ "Mix_MixCallback", new DelegateDefinition { ReturnType = "WARN_PLACEHOLDER", Parameters = [] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:934:24
+{ "Mix_MusicFinishedCallback", new DelegateDefinition { ReturnType = "WARN_PLACEHOLDER", Parameters = [] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1020:24
+{ "Mix_ChannelFinishedCallback", new DelegateDefinition { ReturnType = "WARN_PLACEHOLDER", Parameters = [] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1055:24
+{ "Mix_EffectFunc_t", new DelegateDefinition { ReturnType = "WARN_PLACEHOLDER", Parameters = [] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1095:24
+{ "Mix_EffectDone_t", new DelegateDefinition { ReturnType = "WARN_PLACEHOLDER", Parameters = [] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:1105:24
+{ "Mix_EachSoundFontCallback", new DelegateDefinition { ReturnType = "WARN_PLACEHOLDER", Parameters = [] } }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2445:24
+//DONE

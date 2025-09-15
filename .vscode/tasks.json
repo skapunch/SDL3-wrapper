@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-GenerateBindings",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/GenerateBindings/GenerateBindings.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+          }
+  ]
+}

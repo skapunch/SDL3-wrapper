@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug GenerateBindings",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/GenerateBindings/bin/Debug/net8.0/GenerateBindings.dll",
+      "args": [
+        "/home/khoa-deb/SDL3-CS/SDL3-release", 
+        "sdl3.json", 
+        "SDL_image=false", 
+        "SDL_mixer=true", 
+        "SDL_ttf=false",
+        "SDL_core=false", 
+        "base=SDL_core", 
+        //"debug"
+      ],
+      "cwd": "${workspaceFolder}/GenerateBindings",
+      "preLaunchTask": "build-GenerateBindings"
+    }
+  ]
+}

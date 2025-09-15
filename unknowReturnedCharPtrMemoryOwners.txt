@@ -1,0 +1,12 @@
+new returned char pointers (add these to `ReturnedCharPtrMemoryOwners` in UserProvidedData.cs:
+{ "Mix_GetChunkDecoder", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:706:42
+{ "Mix_GetMusicDecoder", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:773:42
+{ "Mix_GetMusicTitle", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:839:41
+{ "Mix_GetMusicTitleTag", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:866:41
+{ "Mix_GetMusicArtistTag", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:888:41
+{ "Mix_GetMusicAlbumTag", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:910:41
+{ "Mix_GetMusicCopyrightTag", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:932:41
+{ "Mix_GetSoundFonts", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2443:41
+{ "Mix_GetTimidityCfg", ReturnedCharPtrMemoryOwner.Unknown }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:2506:41
+
+//DONE

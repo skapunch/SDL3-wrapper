@@ -1,0 +1,4 @@
+new unpopulated flag enums (add these to `FlagEnumDefinitions` in UserProvidedData.cs:
+{ "MIX_InitFlags", [ ] }, // /home/khoa-deb/SDL3-CS/SDL3-release/include/SDL3_mixer/SDL_mixer.h:75:16
+
+//DONE
